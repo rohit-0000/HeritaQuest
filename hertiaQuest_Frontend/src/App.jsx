@@ -3,7 +3,7 @@ import MapPage from "./Components/MapPage";
 import NavBar from "./Components/NavBar";
 import LeaderBoard from "./Components/LeaderBoard";
 import History from "./Components/History";
-import Login from "./Components/login";
+import Login from "./Components/Login";
 import Signup from "./Components/Signup";
 import ForgotPass from "./Components/ForgotPass";
 import { useDispatch } from "react-redux";
