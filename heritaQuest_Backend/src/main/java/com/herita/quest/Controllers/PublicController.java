@@ -55,6 +55,8 @@ public class PublicController {
             return new ResponseEntity<>(jwt, HttpStatus.OK);
         }
         catch (Exception e){
+            System.out.println(e);
+            System.out.println("-----------------------------------------------------------------------------------------------------------");
             log.error("Exception occured while createAuthenticationToken ",e);
             return new ResponseEntity<>("Incorrect UserName or Password",HttpStatus.BAD_REQUEST);
         }

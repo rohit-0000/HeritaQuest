@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -77,6 +78,7 @@ public class LocationQuizService {
                 question.setUser_response(responseMap.get(question.getId()+""));
             }
         }
+        quiz.setTime(LocalDateTime.now());
         locationQuizRepo.save(quiz);
         return new ResponseEntity<>(HttpStatus.OK);
     }

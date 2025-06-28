@@ -5,6 +5,7 @@ import com.herita.quest.Repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -33,7 +34,7 @@ public class UserService {
             if(updatedUser!=null) return new ResponseEntity<>("user already exist with this userName", HttpStatus.BAD_REQUEST);
             oldUser.setUsername(newUser.getUsername());
         }
-        if(newUser.getUsername()!=null&&!newUser.getPassword().isEmpty()){
+        if(newUser.getPassword()!=null&&!newUser.getPassword().isEmpty()){
             oldUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
         }
         if(newUser.getName()!=null && !newUser.getName().isEmpty() && !newUser.getName().equals(oldUser.getName())) {

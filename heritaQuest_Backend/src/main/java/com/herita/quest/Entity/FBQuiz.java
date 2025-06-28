@@ -5,7 +5,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -17,6 +19,7 @@ public class FBQuiz {
     private Long id;
     private String name;
     private int marks=0;
+    private LocalDateTime time;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)

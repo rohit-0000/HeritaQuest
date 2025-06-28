@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -129,6 +130,7 @@ public class AiService {
                 ques.setQuiz(quiz);
                 quizQuestions.add(ques);
             }
+            quiz.setTime(LocalDateTime.now());
             quiz.setQuestions(quizQuestions);
             quiz.setUser(user);
             user.getQuizzes().add(quiz);
@@ -199,6 +201,7 @@ public class AiService {
             quizQuestions.add(ques);
             ques.setQuiz(quiz);
         }
+        quiz.setTime(LocalDateTime.now());
         quiz.setQuestions(quizQuestions);
         quiz.setUser(user);
         user.getFbQuiz().add(quiz);
