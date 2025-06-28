@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import UserImg from "../assets/DefaultUser.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
-import EditImg from "../assets/EditImg.svg";
+import EditImg from "../assets/editImg.svg";
 import EditTextImg from "../assets/editTextImg.svg";
 import OpenEye from "../assets/open-eye.svg";
 import ClosedEye from "../assets/closed-eye.svg";
