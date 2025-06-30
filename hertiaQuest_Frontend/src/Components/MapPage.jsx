@@ -174,13 +174,11 @@ const MapPage = () => {
       </div>
       <div ref={mapContainerRef} className="w-full h-full" />
 
-      <div className="absolute w-screen md:w-[70%] lg:w-[50%] bottom-0 bg-black/40 backdrop-blur-md z-10 rounded-t-4xl h-auto flex flex-col items-center py-2 px-5 ">
+      <div className="absolute w-screen md:w-[70%] lg:w-[50%] bottom-0 bg-black/50 backdrop-blur-xl z-10 rounded-t-4xl h-auto flex flex-col items-center py-2 px-5 ">
         <button className={`text-3xl font-bold text-white w-7 ${!detail&&"rotate-180"} transition-all duration-100`} onClick={()=>setdetail(!detail)}>
           <img src={Arrow}></img>
         </button>
-        {/* {detail&& */}
         <Location currLocation={currLocation} detail={detail}/>
-        {/* } */}
       </div>
     </div>
   );

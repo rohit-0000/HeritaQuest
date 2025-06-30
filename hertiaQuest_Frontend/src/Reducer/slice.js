@@ -313,6 +313,53 @@ export const setProfileImg = createAsyncThunk(
   }
 );
 
+export const submitLocationQuiz = createAsyncThunk(
+  "submit/locationQuiz",
+  async (quizResponse, { rejectWithValue }) => {
+    try {
+      const token = localStorage.getItem("HeritaQuestToken");
+      const response = await axios.put(
+        `${import.meta.env.VITE_BACKEND_URL}/LocationQuiz/updateLocationQuizResponse`,
+        quizResponse,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return response.data;
+    } catch (e) {
+      if (e.response) {
+        return rejectWithValue(e.response.data);
+      }
+      return rejectWithValue("Network error");
+    }
+  }
+);
+
+export const submitFBQuiz = createAsyncThunk(
+  "submit/FBQuiz",
+  async (quizResponse, { rejectWithValue }) => {
+    try {
+      const token = localStorage.getItem("HeritaQuestToken");
+      const response = await axios.put(
+        `${import.meta.env.VITE_BACKEND_URL}/FB-quiz/updateFbQuizResponse`,
+        quizResponse,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return response.data;
+    } catch (e) {
+      if (e.response) {
+        return rejectWithValue(e.response.data);
+      }
+      return rejectWithValue("Network error");
+    }
+  }
+);
 export const slice = createSlice({
   name: "heritaQuest",
   initialState,
@@ -388,9 +435,45 @@ export const slice = createSlice({
       })
       .addCase(setProfileImg.fulfilled, (state, action) => {
         state.user.userImageUrl = action.payload;
-      });
+      })
+      .addCase(submitLocationQuiz.fulfilled, (state, action) => {
+        const quizResponse = action.meta.arg;
+        const idx = state.LocationQuizHistory.findIndex(
+          (q) => q.id == quizResponse.id
+        );
+        if(idx!=-1){
+          state.LocationQuizHistory[idx].marks=quizResponse.marks;
+          state.LocationQuizHistory[idx].questions.forEach(qes => {
+            qes.user_response=quizResponse.response[qes.id];
+          });
+          localStorage.removeItem("locationQuizResponse");
+        }
+        else{
+          toast.error("unexpected error");
+        }
+      })
+      .addCase(submitFBQuiz.fulfilled,(state,action)=>{
+        const quizResponse=action.meta.arg;
+        const idx=state.FBQuizHistory.findIndex((q)=>q.id==quizResponse.id);
+        if(idx!=-1){
+          state.FBQuizHistory[idx].marks=quizResponse.marks;
+          state.FBQuizHistory[idx].questions.forEach(qes=>{
+            qes.user_response=quizResponse.response[qes.id];
+          });
+          localStorage.removeItem("FBQuizResponse");
+        }
+        else{
+          toast.error("unexpected error");
+        }
+      })
+      .addCase(submitLocationQuiz.rejected, (state, action) => {
+        toast.error(action.payload || "Error in Submitting response");
+      })
+      .addCase(submitFBQuiz.rejected, (state, action) => {
+        toast.error(action.payload || "Error in Submitting response");
+      })
   },
 });
 
 export default slice.reducer;
-export const {clearState}=slice.actions;
+export const { clearState } = slice.actions;

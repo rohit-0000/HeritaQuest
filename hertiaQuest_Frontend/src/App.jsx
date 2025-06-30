@@ -16,6 +16,12 @@ import {
 } from "./Reducer/slice";
 import Profile from "./Components/Profile";
 import { useEffect, useState } from "react";
+import LocationQuiz from "./Components/LocationQuiz";
+import LocationQuizResult from "./Components/LocationQuizResult";
+import LocationQuizReview from "./Components/LocationQuizReview";
+import FB_Quiz from "./Components/FB_Quiz";
+import FB_QuizResult from "./Components/FB_QuizResult";
+import FB_QuizReview from "./Components/FB_QuizReview";
 
 function App() {
   const token = localStorage.getItem("HeritaQuestToken");
@@ -96,6 +102,58 @@ function App() {
         </div>
       ),
     },
+    {
+      path:"/locationQuiz/:id",
+      element:(
+        <div>
+          <LocationQuiz/>
+        </div>
+      )
+    },
+    {
+      path:"/fbQuiz/:id",
+      element:(
+        <div>
+          <FB_Quiz/>
+        </div>
+      )
+    },
+    {
+      path:"/locationQuizResult/:id",
+      element:(
+        <div>
+          <NavBar/>
+          <LocationQuizResult/>
+        </div>
+      )
+    },
+    {
+      path:"/fbQuizResult/:id",
+      element:(
+        <div>
+          <NavBar/>
+          <FB_QuizResult/>
+        </div>
+      )
+    },
+    {
+      path:"/locationQuizReview/:id",
+      element:(
+        <div>
+          <NavBar/>
+          <LocationQuizReview/>
+        </div>
+      )
+    },
+    {
+      path:"/fbQuizReview/:id",
+      element:(
+        <div>
+          <NavBar/>
+          <FB_QuizReview/>
+        </div>
+      )
+    }
   ]);
   useEffect(() => {
     if (token != null) {
@@ -105,6 +163,8 @@ function App() {
       dispatch(getLocationQuizHistory());
       dispatch(getFBQuizLeaderboard());
       dispatch(getFBQuizHistory());
+    }else{
+      setShowLogin(true);
     }
   }, [token]);
 
