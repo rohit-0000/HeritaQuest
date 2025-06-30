@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+input::-ms-reveal,
+input::-ms-clear {
+  display: none;
+}
+* {
+  font-family: "Raleway", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
